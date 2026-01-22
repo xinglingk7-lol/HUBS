@@ -1,0 +1,237 @@
+-- PRISON LIFE MOBILE DELTA - FUNK MECA INTRO 5s (REDUZIDO)
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+print("🔥 PRISON LIFE TP + FUNK MECA 5s PRIORITÁRIO...")
+
+-- VARIÁVEIS GLOBAIS
+local podeUsar = false
+local character, humanoidRootPart
+
+-- GARANTIR CHARACTER
+local function getCharacter()
+    character = player.Character or player.CharacterAdded:Wait()
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+end
+getCharacter()
+
+-- GUI PRINCIPAL
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PrisonTPMeca5s"
+screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 9999999
+screenGui.Parent = playerGui
+
+print("✅ GUI CRIADA!")
+
+-- INTRO RETÂNGULO + SOM JUNTO (PRIORITÁRIO)
+local introFrame = Instance.new("Frame")
+introFrame.Size = UDim2.new(0, 300, 0, 130)
+introFrame.Position = UDim2.new(0.5, -150, 0.5, -65)
+introFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 35)
+introFrame.BorderSizePixel = 0
+introFrame.Parent = screenGui
+
+local introCorner = Instance.new("UICorner")
+introCorner.CornerRadius = UDim.new(0, 25)
+introCorner.Parent = introFrame
+
+local introStroke = Instance.new("UIStroke")
+introStroke.Color = Color3.fromRGB(255, 50, 255)
+introStroke.Thickness = 4
+introStroke.Parent = introFrame
+
+-- TÍTULO
+local titulo = Instance.new("TextLabel")
+titulo.Size = UDim2.new(1, 0, 0, 45)
+titulo.Position = UDim2.new(0, 0, 0.15, 0)
+titulo.BackgroundTransparency = 1
+titulo.Text = "Iniciando TP Weapon"
+titulo.TextColor3 = Color3.fromRGB(255, 50, 255)
+titulo.TextScaled = true
+titulo.Font = Enum.Font.GothamBold
+titulo.Parent = introFrame
+
+-- BARRA CARREGAMENTO
+local barraFrame = Instance.new("Frame")
+barraFrame.Size = UDim2.new(0.88, 0, 0, 18)
+barraFrame.Position = UDim2.new(0.06, 0, 0.68, 0)
+barraFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+barraFrame.BorderSizePixel = 0
+barraFrame.Parent = introFrame
+
+local barraCorner = Instance.new("UICorner")
+barraCorner.CornerRadius = UDim.new(0, 9)
+barraCorner.Parent = barraFrame
+
+local barraPreenchimento = Instance.new("Frame")
+barraPreenchimento.Size = UDim2.new(0, 0, 1, 0)
+barraPreenchimento.BackgroundColor3 = Color3.fromRGB(255, 50, 255)
+barraPreenchimento.BorderSizePixel = 0
+barraPreenchimento.Parent = barraFrame
+
+local preenchimentoCorner = Instance.new("UICorner")
+preenchimentoCorner.CornerRadius = UDim.new(0, 9)
+preenchimentoCorner.Parent = barraPreenchimento
+
+-- MÚSICA FUNK MECA JUNTO COM INTRO (PRIORIDADE MÁXIMA)
+local musica = Instance.new("Sound")
+musica.SoundId = "rbxassetid://1846368080" -- Funk brasileiro Meca
+musica.Volume = 1.0 -- VOLUME MÁXIMO
+musica.Looped = false
+musica.Parent = introFrame -- JUNTO COM INTRO
+musica.Ended:Connect(function()
+    print("✅ FUNK MECA TERMINOU!")
+end)
+musica:Play() -- PRIORIDADE: TOCA PRIMEIRO
+
+print("✅ FUNK MECA TOCANDO COM INTRO 5s!")
+
+-- BOTÃO CIRCULAR PEQUENO PRETO - CIMA DIREITA
+local btnFrame = Instance.new("Frame")
+btnFrame.Size = UDim2.new(0, 60, 0, 60)
+btnFrame.Position = UDim2.new(1, -80, 0, 20)
+btnFrame.AnchorPoint = Vector2.new(1, 0)
+btnFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnFrame.BorderSizePixel = 0
+btnFrame.Visible = false
+btnFrame.Active = true
+btnFrame.Draggable = true
+btnFrame.Parent = screenGui
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(1, 0)
+btnCorner.Parent = btnFrame
+
+local btnStroke = Instance.new("UIStroke")
+btnStroke.Color = Color3.fromRGB(128, 128, 128)
+btnStroke.Thickness = 3
+btnStroke.Parent = btnFrame
+
+local btnOK = Instance.new("TextButton")
+btnOK.Size = UDim2.new(0, 35, 0, 35)
+btnOK.Position = UDim2.new(0.5, -17.5, 0.5, -17.5)
+btnOK.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btnOK.Text = "OK"
+btnOK.TextColor3 = Color3.fromRGB(0, 0, 0)
+btnOK.TextScaled = true
+btnOK.Font = Enum.Font.GothamBold
+btnOK.Parent = btnFrame
+
+local okCorner = Instance.new("UICorner")
+okCorner.CornerRadius = UDim.new(1, 0)
+okCorner.Parent = btnOK
+
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, -10, 0, 20)
+statusLabel.Position = UDim2.new(0, 5, 1, 2)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = "Clique OK"
+statusLabel.TextColor3 = Color3.new(1,1,1)
+statusLabel.TextScaled = true
+statusLabel.Font = Enum.Font.Gotham
+statusLabel.Parent = btnFrame
+
+print("✅ FUNK MECA 5s COM INTRO INICIANDO...")
+
+-- INTRO 5 SEGUNDOS + FUNK MECA (REDUZIDO)
+spawn(function()
+    -- Anima intro DEPOIS da música começar
+    wait(0.1) -- Pequeno delay pra música carregar
+    TweenService:Create(introFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back),
+        {Size = UDim2.new(0, 340, 0, 145)}
+    ):Play()
+    
+    -- Barra 5s (ACELERADA - 0.01 step)
+    for i = 0, 1, 0.01 do
+        barraPreenchimento.Size = UDim2.new(i, 0, 1, 0)
+        wait(0.05) -- 5s total
+    end
+    
+    -- Fade out intro
+    TweenService:Create(introFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+        {Size = UDim2.new(0, 0, 0, 0)}
+    ):Play()
+    wait(0.3)
+    introFrame:Destroy()
+    
+    -- Botão aparece
+    btnFrame.Visible = true
+    TweenService:Create(btnFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back),
+        {Size = UDim2.new(0, 65, 0, 65)}
+    ):Play()
+    
+    podeUsar = true
+    print("✅ FUNK MECA 5s CONCLUÍDA - BOTÃO PRONTO!")
+end)
+
+-- TP SEQUENCIAL (MESMO)
+local function fazerTP()
+    if not podeUsar or not humanoidRootPart then 
+        print("❌ ERRO: Sem character")
+        return 
+    end
+    
+    print("🚀 TP INICIANDO...")
+    podeUsar = false
+    statusLabel.Text = "TP1..."
+    statusLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+    
+    local posInicial = humanoidRootPart.CFrame
+    
+    -- TP 1
+    humanoidRootPart.CFrame = CFrame.new(813.6, 100.0, 2231.3)
+    statusLabel.Text = "Andando..."
+    wait(0.2)
+    
+    -- W 1s
+    local bv = Instance.new("BodyVelocity")
+    bv.MaxForce = Vector3.new(40000, 4000, 40000)
+    bv.Velocity = humanoidRootPart.CFrame.LookVector * 25
+    bv.Parent = humanoidRootPart
+    wait(1)
+    bv:Destroy()
+    
+    -- TP 2
+    humanoidRootPart.CFrame = CFrame.new(820.1, 100.0, 2231.2)
+    statusLabel.Text = "Andando 2..."
+    wait(0.2)
+    
+    -- W 1s
+    bv = Instance.new("BodyVelocity")
+    bv.MaxForce = Vector3.new(40000, 4000, 40000)
+    bv.Velocity = humanoidRootPart.CFrame.LookVector * 25
+    bv.Parent = humanoidRootPart
+    wait(1)
+    bv:Destroy()
+    
+    -- VOLTA
+    humanoidRootPart.CFrame = posInicial
+    statusLabel.Text = "✅ Concluída!"
+    statusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+    
+    print("✅ TP FINALIZADA!")
+    
+    -- Reativa 3s (mais rápido)
+    spawn(function()
+        wait(3)
+        podeUsar = true
+        statusLabel.Text = "Clique OK"
+        statusLabel.TextColor3 = Color3.new(1,1,1)
+    end)
+end
+
+-- EVENTOS
+btnOK.MouseButton1Click:Connect(fazerTP)
+
+player.CharacterAdded:Connect(function(newChar)
+    character = newChar
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    podeUsar = true
+    print("✅ Character novo detectado")
+end)
+
+print("🎯 PRISON LIFE MOBILE DELTA + FUNK MECA 5s ATIVO!")
+print("✅ MÚSICA TOCA PRIMEIRO + 5s intro + Botão CIMA DIREITA!")
